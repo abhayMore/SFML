@@ -1,25 +1,30 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
+#include <string>
 
+std::string Title = "Snake";
+const int WIDTH = 600;
+const int HEIGHT = 600;
 
-int WIDTH = 600;
-int HEIGHT = 600;
+sf::Color RED(255,0,0);
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Snake");
+	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), Title);
 
-	sf::RectangleShape rectangle(sf::Vector2f(0.0f,0.0f));
+	sf::RectangleShape rectangle;
+	const float RectSizeWidth = 20;
+	const float RectSizeHeight = 20;
+	const int RectPositionX = 0;
+	const int RectPositionY = 0;
 
-	rectangle.setSize(sf::Vector2f(20.0f,20.0f));
+	rectangle.setSize(sf::Vector2f(RectSizeWidth, RectSizeHeight));
+	rectangle.setFillColor(RED);
+	rectangle.setPosition(RectPositionX,RectPositionY);
 
-	rectangle.setFillColor(sf::Color(255,0,0));
-
-	rectangle.setPosition(0,0);
-
-	int Speed = 10;
-	int Movex = 0;
-	int Movey = 0;
+	float Speed = 10.0f;
+	float MoveX = 0.0f;
+	float MoveY = 0.0f;
 
 	while(window.isOpen())
 	{
@@ -43,22 +48,22 @@ int main()
 					{
 						case sf::Keyboard::Right:
 						{
-							Movex += Speed;
+							MoveX += Speed;
 						}
 						break;
 						case sf::Keyboard::Left:
 						{
-							Movex += -Speed;
+							MoveX += -Speed;
 						}
 						break;
 						case sf::Keyboard::Up:
 						{
-							Movey += -Speed;
+							MoveY += -Speed;
 						}
 						break;
 						case sf::Keyboard::Down:
 						{
-							Movey += Speed;
+							MoveY += Speed;
 						}
 						break;
 					}
@@ -67,7 +72,7 @@ int main()
 			}
 
 
-			rectangle.setPosition(Movex, Movey);
+			rectangle.setPosition(MoveX, MoveY);
 
 
 
