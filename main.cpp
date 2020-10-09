@@ -3,8 +3,8 @@
 #include <string>
 
 const std::string& Title = "Snake";	 //Window/Game Name
-const int WIDTH 			   = 600;      //Window Width
-const int HEIGHT 				 = 600;			 //Window Height
+const int WIDTH					 = 600;      //Window Width
+const int HEIGHT				 = 600;			 //Window Height
 
 sf::Color RED(255,0,0);
 
