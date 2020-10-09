@@ -2,19 +2,19 @@
 #include <iostream>
 #include <string>
 
-std::string Title = "Snake";
+std::string Title = "Snake"; //make a habit of const ref for strings if not otherwise needed
 const int WIDTH = 600;
 const int HEIGHT = 600;
 
-sf::Color RED(255,0,0);
+sf::Color RED(255,0,0); //this looks gameobject specific and not window specific. Why is this global? 
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), Title);
 
 	sf::RectangleShape rectangle;
-	const float RectSizeWidth = 20;
-	const float RectSizeHeight = 20;
+	const float RectSizeWidth = 20; //missing .0f 
+	const float RectSizeHeight = 20; //indent code properly so that = aligns , makes your code more pleasing to readers. 
 	const int RectPositionX = 0;
 	const int RectPositionY = 0;
 
