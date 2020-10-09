@@ -3,7 +3,7 @@
 #include <string>
 
 const std::string& Title = "Snake";  //Window/Game Name
-const int WIDTH					 = 600;      //Window Width
+const int WIDTH		 = 600;      //Window Width
 const int HEIGHT         = 600;      //Window Height
 
 sf::Color RED(255,0,0);
@@ -15,8 +15,8 @@ int main()
 	sf::RectangleShape rectangle;
 	const float RectSizeWidth  = 20.0f;
 	const float RectSizeHeight = 20.0f;
-	const int RectPositionX		 = 0;
-	const int RectPositionY 	 = 0;
+	const int RectPositionX	   = 0;
+	const int RectPositionY	   = 0;
 
 	rectangle.setSize(sf::Vector2f(RectSizeWidth, RectSizeHeight));
 	rectangle.setFillColor(RED);
