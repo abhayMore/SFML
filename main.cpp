@@ -2,9 +2,9 @@
 #include <iostream>
 #include <string>
 
-std::string Title = "Snake";
-const int WIDTH = 600;
-const int HEIGHT = 600;
+const std::string& Title = "Snake";  //Window/Game Name
+const int WIDTH		 = 600;      //Window Width
+const int HEIGHT         = 600;      //Window Height
 
 sf::Color RED(255,0,0);
 
@@ -13,18 +13,18 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), Title);
 
 	sf::RectangleShape rectangle;
-	const float RectSizeWidth = 20;
-	const float RectSizeHeight = 20;
-	const int RectPositionX = 0;
-	const int RectPositionY = 0;
+	const float RectSizeWidth  = 20.0f;
+	const float RectSizeHeight = 20.0f;
+	const int RectPositionX	   = 0;
+	const int RectPositionY	   = 0;
 
 	rectangle.setSize(sf::Vector2f(RectSizeWidth, RectSizeHeight));
 	rectangle.setFillColor(RED);
 	rectangle.setPosition(RectPositionX,RectPositionY);
 
 	float Speed = 10.0f;
-	float MoveX = 0.0f;
-	float MoveY = 0.0f;
+	float MoveX =  0.0f;
+	float MoveY =  0.0f;
 
 	while(window.isOpen())
 	{
