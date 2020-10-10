@@ -1,22 +1,29 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
 #include <string>
-#include<fstream>
+#include <fstream>
 #include <sstream>
+
+const sf::Color RED(255,0,0);
 
 struct Config
 {
-	std::string TITLE;
-	int WIDTH;
-	int HEIGHT;
+	std::string WINDOW_TITLE;
+	int WINDOW_WIDTH;
+	int WINDOW_HEIGHT;
+
+	Config(): WINDOW_TITLE("Snake"), WINDOW_WIDTH(400), WINDOW_HEIGHT(400)
+	{
+
+	}
 };
 
-void loadconfig(Config& config)
+void LoadConfig(Config& Data)
 {
 	std::ifstream ConfigFile("./Config/config.ini");
 	if(!ConfigFile)
 	{
-		std::cout << "Error loading config.ini" << '\n';
+		std::cerr << "Error loading config.ini" << '\n';
 	}
 	else
 	{
@@ -24,23 +31,26 @@ void loadconfig(Config& config)
 		while(getline(ConfigFile,line))
 		{
 			std::istringstream sin(line.substr(line.find("=") + 1));
+
 			if(line.find("WIDTH") != -1)
-				sin >> config.WIDTH;
+				sin >> Data.WINDOW_WIDTH;
+
 			else if( line.find("HEIGHT") != -1)
-				sin >> config.HEIGHT;
+				sin >> Data.WINDOW_HEIGHT;
+
 			else if(line.find("TITLE") != -1)
-				sin >> config.TITLE;
+				sin >> Data.WINDOW_TITLE;
 		}
 	}
 }
-sf::Color RED(255,0,0);
 
 int main()
 {
-	struct Config config;
-	loadconfig(config);
+	struct Config Data;
+	LoadConfig(Data);
 
-	sf::RenderWindow window(sf::VideoMode(config.WIDTH, config.HEIGHT), config.TITLE);
+	sf::RenderWindow window(sf::VideoMode(Data.WINDOW_WIDTH, Data.WINDOW_HEIGHT), Data.WINDOW_TITLE);
+
 
 	sf::RectangleShape rectangle;
 	const float RectSizeWidth  = 20.0f;
