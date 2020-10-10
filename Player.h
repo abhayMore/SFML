@@ -26,7 +26,7 @@ public:
 
   void onKeyUp(sf::Keyboard::Key&);
 
-	void update();
+  void update();
 
 };
 
