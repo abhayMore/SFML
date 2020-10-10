@@ -33,9 +33,6 @@ void loadconfig(Config& config)
 		}
 	}
 }
-
-
-
 sf::Color RED(255,0,0);
 
 int main()
@@ -43,17 +40,13 @@ int main()
 	struct Config config;
 	loadconfig(config);
 
-	std::cout << config.WIDTH << '\n';
-	std::cout << config.HEIGHT << '\n';
-	std::cout << config.TITLE << '\n';
-
 	sf::RenderWindow window(sf::VideoMode(config.WIDTH, config.HEIGHT), config.TITLE);
 
 	sf::RectangleShape rectangle;
 	const float RectSizeWidth  = 20.0f;
 	const float RectSizeHeight = 20.0f;
-	const int RectPositionX		 = 0;
-	const int RectPositionY 	 = 0;
+	const int RectPositionX	   = 0;
+	const int RectPositionY	   = 0;
 
 	rectangle.setSize(sf::Vector2f(RectSizeWidth, RectSizeHeight));
 	rectangle.setFillColor(RED);
