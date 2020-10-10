@@ -1,16 +1,53 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
 #include <string>
+#include<fstream>
+#include <sstream>
 
-const std::string& Title = "Snake";  //Window/Game Name
-const int WIDTH					 = 600;      //Window Width
-const int HEIGHT         = 600;      //Window Height
+struct Config
+{
+	std::string TITLE;
+	int WIDTH;
+	int HEIGHT;
+};
+
+void loadconfig(Config& config)
+{
+	std::ifstream ConfigFile("./Config/config.ini");
+	if(!ConfigFile)
+	{
+		std::cout << "Error loading config.ini" << '\n';
+	}
+	else
+	{
+		std::string line;
+		while(getline(ConfigFile,line))
+		{
+			std::istringstream sin(line.substr(line.find("=") + 1));
+			if(line.find("WIDTH") != -1)
+				sin >> config.WIDTH;
+			else if( line.find("HEIGHT") != -1)
+				sin >> config.HEIGHT;
+			else if(line.find("TITLE") != -1)
+				sin >> config.TITLE;
+		}
+	}
+}
+
+
 
 sf::Color RED(255,0,0);
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), Title);
+	struct Config config;
+	loadconfig(config);
+
+	std::cout << config.WIDTH << '\n';
+	std::cout << config.HEIGHT << '\n';
+	std::cout << config.TITLE << '\n';
+
+	sf::RenderWindow window(sf::VideoMode(config.WIDTH, config.HEIGHT), config.TITLE);
 
 	sf::RectangleShape rectangle;
 	const float RectSizeWidth  = 20.0f;
