@@ -14,12 +14,12 @@ struct Config
 
 	Config(): WINDOW_TITLE("Snake"), WINDOW_WIDTH(400), WINDOW_HEIGHT(400)
 	{
-
 	}
 };
 
-void LoadConfig(Config& Data)
+Config GetConfigData()
 {
+	Config LocalData;
 	std::ifstream ConfigFile("./Config/config.ini");
 	if(!ConfigFile)
 	{
@@ -27,64 +27,64 @@ void LoadConfig(Config& Data)
 	}
 	else
 	{
-		std::string line;
-		while(getline(ConfigFile,line))
+		std::string Line;
+		while(getline(ConfigFile,Line))
 		{
-			std::istringstream sin(line.substr(line.find("=") + 1));
+			std::istringstream Sin(Line.substr(Line.find("=") + 1));
 
-			if(line.find("WIDTH") != -1)
-				sin >> Data.WINDOW_WIDTH;
+			if(Line.find("WIDTH") != -1)
+				Sin >> LocalData.WINDOW_WIDTH;
 
-			else if( line.find("HEIGHT") != -1)
-				sin >> Data.WINDOW_HEIGHT;
+			else if( Line.find("HEIGHT") != -1)
+				Sin >> LocalData.WINDOW_HEIGHT;
 
-			else if(line.find("TITLE") != -1)
-				sin >> Data.WINDOW_TITLE;
+			else if(Line.find("TITLE") != -1)
+				Sin >> LocalData.WINDOW_TITLE;
 		}
 	}
+	return LocalData;
 }
 
 int main()
 {
-	struct Config Data;
-	LoadConfig(Data);
+	const  Config Data(GetConfigData());
 
-	sf::RenderWindow window(sf::VideoMode(Data.WINDOW_WIDTH, Data.WINDOW_HEIGHT), Data.WINDOW_TITLE);
+	sf::RenderWindow Window(sf::VideoMode(Data.WINDOW_WIDTH, Data.WINDOW_HEIGHT), Data.WINDOW_TITLE);
 
 
-	sf::RectangleShape rectangle;
+	sf::RectangleShape Rectangle;
 	const float RectSizeWidth  = 20.0f;
 	const float RectSizeHeight = 20.0f;
 	const int RectPositionX	   = 0;
 	const int RectPositionY	   = 0;
 
-	rectangle.setSize(sf::Vector2f(RectSizeWidth, RectSizeHeight));
-	rectangle.setFillColor(RED);
-	rectangle.setPosition(RectPositionX,RectPositionY);
+	Rectangle.setSize(sf::Vector2f(RectSizeWidth, RectSizeHeight));
+	Rectangle.setFillColor(RED);
+	Rectangle.setPosition(RectPositionX,RectPositionY);
 
 	float Speed = 10.0f;
 	float MoveX =  0.0f;
 	float MoveY =  0.0f;
 
-	while(window.isOpen())
+	while(Window.isOpen())
 	{
-		sf::Event event;
+		sf::Event GameEvent;
 
 
 
-		while(window.pollEvent(event))
+		while(Window.pollEvent(GameEvent))
 		{
-			switch(event.type)
+			switch(GameEvent.type)
 			{
 				case sf::Event::Closed:
 				{
-					window.close();
+					Window.close();
 				}
 				break;
 
 				case sf::Event::KeyPressed:
 				{
-					switch(event.key.code)
+					switch(GameEvent.key.code)
 					{
 						case sf::Keyboard::Right:
 						{
@@ -112,15 +112,15 @@ int main()
 			}
 
 
-			rectangle.setPosition(MoveX, MoveY);
+			Rectangle.setPosition(MoveX, MoveY);
 
 
 
-			window.clear();
+			Window.clear();
 
-			window.draw(rectangle);
+			Window.draw(Rectangle);
 
-			window.display();
+			Window.display();
 		}
 	}
 	return 0;
