@@ -5,9 +5,9 @@
 
 Player::Player()
 {
-  m_Speed	= 20;
-  m_MoveX = 0;
-  m_MoveY	= 0;
+  m_Speed	= 20.0f;
+  m_MoveX = 0.0f;
+  m_MoveY	= 0.0f;
   m_Rectangle.setSize(sf::Vector2f(m_RectSizeWidth, m_RectSizeHeight));
   m_Rectangle.setFillColor(RED);
   m_Rectangle.setPosition(m_RectPositionX,m_RectPositionY);
