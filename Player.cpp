@@ -1,5 +1,6 @@
 
  #include "Player.h"
+ #include <iostream>
  #include "SFML/Graphics.hpp"
 
 
@@ -52,5 +53,23 @@ void Player::onKeyUp(sf::Keyboard::Key& KeyCode)
 
 void Player::update()
 {
+  if(m_Rectangle.getPosition().x > 600)
+  {
+    m_MoveX = 0;
+  }
+  else if(m_Rectangle.getPosition().x  < 0)
+  {
+    m_MoveX = 600;
+  }
+  else if(m_Rectangle.getPosition().y > 600)
+  {
+    m_MoveY = 0;
+  }
+  else if(m_Rectangle.getPosition().y < 0)
+  {
+    m_MoveY = 600;
+  }
+
   m_Rectangle.setPosition(m_MoveX, m_MoveY);
+
 }
