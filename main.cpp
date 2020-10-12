@@ -1,9 +1,8 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
 #include <string>
-#include <fstream>
-#include <sstream>
-
+#include<sstream>
+#include<fstream>
 #include "Player.h"
 
 
@@ -13,13 +12,14 @@ struct Config
 	std::string WINDOW_TITLE;
 	int WINDOW_WIDTH;
 	int WINDOW_HEIGHT;
-
 	Config(): WINDOW_TITLE("Snake"), WINDOW_WIDTH(400), WINDOW_HEIGHT(400)
 	{
 	}
+
+
 };
 
-Config GetConfigData()
+Config GetnLoadConfigData()
 {
 	Config LocalData;
 	std::ifstream ConfigFile("./Config/config.ini");
@@ -46,15 +46,13 @@ Config GetConfigData()
 	}
 	return LocalData;
 }
-
-
 int main()
 {
-	const  Config Data(GetConfigData());
+	const  Config Data(GetnLoadConfigData());
 
 	sf::RenderWindow Window(sf::VideoMode(Data.WINDOW_WIDTH, Data.WINDOW_HEIGHT), Data.WINDOW_TITLE);
 
-	Player Snake;
+	Player Snake(Data.WINDOW_WIDTH,Data.WINDOW_HEIGHT);
 
 	while(Window.isOpen())
 	{
