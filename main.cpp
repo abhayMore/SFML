@@ -4,6 +4,7 @@
 #include<sstream>
 #include<fstream>
 #include "Player.h"
+#include "Fruit.h"
 
 
 
@@ -15,8 +16,6 @@ struct Config
 	Config(): WINDOW_TITLE("Snake"), WINDOW_WIDTH(400), WINDOW_HEIGHT(400)
 	{
 	}
-
-
 };
 
 Config GetnLoadConfigData()
@@ -54,6 +53,8 @@ int main()
 
 	Player Snake(Data.WINDOW_WIDTH,Data.WINDOW_HEIGHT);
 
+	Fruit Apple;
+
 	while(Window.isOpen())
 	{
 		sf::Event GameEvent;
@@ -82,12 +83,13 @@ int main()
 			}
 
 			Snake.update();
-
+			Apple.update();
 
 
 			Window.clear();
 
 			Snake.draw(Window);
+			Apple.draw(Window);
 
 			Window.display();
 		}
