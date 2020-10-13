@@ -1,8 +1,8 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
 #include <string>
-#include<sstream>
-#include<fstream>
+#include <sstream>
+#include <fstream>
 #include "Player.h"
 #include "Fruit.h"
 
@@ -93,6 +93,7 @@ int main()
 
 			Window.display();
 		}
+
 	}
 	return 0;
 }

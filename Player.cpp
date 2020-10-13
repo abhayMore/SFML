@@ -11,7 +11,7 @@ Player::Player( int WIDTH, int HEIGHT): WindowWidth(WIDTH),WindowHeight(HEIGHT)
   m_Rectangle.setSize(sf::Vector2f(m_RectSizeWidth, m_RectSizeHeight));
   m_Rectangle.setFillColor(RED);
   m_Rectangle.setOrigin(m_Rectangle.getSize().x/2,m_Rectangle.getSize().y/2);
-  m_Move = sf::Vector2f(WindowWidth/2,WindowHeight/2);
+  m_Move = Vector2f(WindowWidth/2,WindowHeight/2);
   m_Rectangle.setPosition(m_Move.x,m_Move.y);
 }
 
