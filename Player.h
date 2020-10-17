@@ -12,8 +12,10 @@ private:
 	sf::RectangleShape m_Rectangle;
 	const float m_RectSizeWidth		= 20.0f;
 	const float m_RectSizeHeight	= 20.0f;
+
 	float m_Speed;
-	Vector2f m_Move;
+	Vector2f Position;
+	Vector2f Velocity;
 
 public:
 
@@ -24,6 +26,8 @@ public:
   void onKeyDown(sf::Keyboard::Key&);
 
   void onKeyUp(sf::Keyboard::Key&);
+
+	void MovePlayer();
 
   void update();
 

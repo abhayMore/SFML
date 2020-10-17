@@ -5,7 +5,7 @@
 #include <fstream>
 #include "Player.h"
 #include "Fruit.h"
-
+#include <math.h>
 
 
 struct Config
@@ -49,16 +49,20 @@ int main()
 {
 	const  Config Data(GetnLoadConfigData());
 
+
+
 	sf::RenderWindow Window(sf::VideoMode(Data.WINDOW_WIDTH, Data.WINDOW_HEIGHT), Data.WINDOW_TITLE);
 
 	Player Snake(Data.WINDOW_WIDTH,Data.WINDOW_HEIGHT);
 
 	Fruit Apple;
 
+
+
 	while(Window.isOpen())
 	{
 		sf::Event GameEvent;
-
+		
 		while(Window.pollEvent(GameEvent))
 		{
 			switch(GameEvent.type)
@@ -81,9 +85,12 @@ int main()
 				}
 				break;
 			}
+		}
 
-			Snake.update();
+
+
 			Apple.update();
+			Snake.update();
 
 
 			Window.clear();
@@ -92,7 +99,7 @@ int main()
 			Apple.draw(Window);
 
 			Window.display();
-		}
+
 
 	}
 	return 0;
