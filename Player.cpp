@@ -7,7 +7,7 @@
 
 Player::Player( int WIDTH, int HEIGHT): WindowWidth(WIDTH),WindowHeight(HEIGHT)
 {
-  m_Speed = 0.1f;
+  m_Speed = 0.6f;
 
   m_Rectangle.setSize(sf::Vector2f(m_RectSizeWidth, m_RectSizeHeight));
   m_Rectangle.setFillColor(RED);
@@ -21,6 +21,8 @@ Player::Player( int WIDTH, int HEIGHT): WindowWidth(WIDTH),WindowHeight(HEIGHT)
 void Player::draw( sf::RenderWindow& Window)
 {
   Window.draw(m_Rectangle);
+
+
 }
 
 void Player::onKeyDown(sf::Keyboard::Key& KeyCode)
@@ -57,10 +59,6 @@ void Player::onKeyDown(sf::Keyboard::Key& KeyCode)
 
 void Player::MovePlayer()
 {
-
-  Position.x += Velocity.x;
-  Position.y += Velocity.y;
-  m_Rectangle.setPosition(Position.x,Position.y);
 }
 
 
@@ -68,7 +66,7 @@ void Player::onKeyUp(sf::Keyboard::Key& KeyCode)
 {
 }
 
-void Player::update()
+void Player::update(const sf::Time& Dt)
 {
 
   if(m_Rectangle.getPosition().x > WindowWidth)
@@ -88,6 +86,8 @@ void Player::update()
     Position.y = WindowHeight;
   }
 
-  MovePlayer();
+  Position.x += Velocity.x*Dt.asMilliseconds();
+  Position.y += Velocity.y*Dt.asMilliseconds();
+  m_Rectangle.setPosition(Position.x,Position.y);
 
 }

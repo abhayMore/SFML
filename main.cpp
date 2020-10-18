@@ -45,6 +45,11 @@ Config GetnLoadConfigData()
 	}
 	return LocalData;
 }
+
+
+
+
+
 int main()
 {
 	const  Config Data(GetnLoadConfigData());
@@ -53,16 +58,18 @@ int main()
 
 	sf::RenderWindow Window(sf::VideoMode(Data.WINDOW_WIDTH, Data.WINDOW_HEIGHT), Data.WINDOW_TITLE);
 
+	Window.setFramerateLimit(15);
+
 	Player Snake(Data.WINDOW_WIDTH,Data.WINDOW_HEIGHT);
 
 	Fruit Apple;
 
-
+	sf::Clock clock;
 
 	while(Window.isOpen())
 	{
 		sf::Event GameEvent;
-		
+
 		while(Window.pollEvent(GameEvent))
 		{
 			switch(GameEvent.type)
@@ -88,10 +95,11 @@ int main()
 		}
 
 
-
+			sf::Time Dt = clock.getElapsedTime();
 			Apple.update();
-			Snake.update();
+			Snake.update(Dt);
 
+			clock.restart().asMilliseconds();
 
 			Window.clear();
 

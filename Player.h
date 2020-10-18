@@ -29,7 +29,7 @@ public:
 
 	void MovePlayer();
 
-  void update();
+  void update(const sf::Time&);
 
 };
 
