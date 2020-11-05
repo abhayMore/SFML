@@ -2,26 +2,28 @@
 #define FRUIT_H
 
 #include "SFML/Graphics.hpp"
-#include "Vector2f.h"
+#include "Vector2.h"
+
 
 
 class Fruit
 {
 private:
-  Vector2f m_FruitPos;
+  Vector2i m_FruitPos;
+  Vector2f m_FruitSize{20,20};
+  Vector2i m_Item;
   sf::RectangleShape m_Fruit;
-  const float m_FruitSizeWidth = 20.0f;
-  const float m_FruitSizeHeight = 20.0f;
 
 public:
 
   Fruit();
 
-  void draw(sf::RenderWindow&);
+  Vector2i GetItem();
+  void RespawnFruit(Vector2u WorldWindSize, int BoundSize);
 
-  void update();
+  void Render(sf::RenderWindow&);
 
-  const sf::Vector2f& getPosition();
+  void Update();
 
 };
 

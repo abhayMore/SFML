@@ -3,17 +3,17 @@
 #include <string>
 #include <sstream>
 #include <fstream>
-#include "Player.h"
-#include "Fruit.h"
+#include "Game.h"
+#include "Vector2.h"
 #include <math.h>
+
 
 
 struct Config
 {
 	std::string WINDOW_TITLE;
-	int WINDOW_WIDTH;
-	int WINDOW_HEIGHT;
-	Config(): WINDOW_TITLE("Snake"), WINDOW_WIDTH(400), WINDOW_HEIGHT(400)
+	Vector2u WINDOWSIZE;
+	Config(): WINDOW_TITLE("Saanp"), WINDOWSIZE(400,400)
 	{
 	}
 };
@@ -34,10 +34,10 @@ Config GetnLoadConfigData()
 			std::istringstream Sin(Line.substr(Line.find("=") + 1));
 
 			if(Line.find("WIDTH") != -1)
-				Sin >> LocalData.WINDOW_WIDTH;
+				Sin >> LocalData.WINDOWSIZE.x;
 
 			else if( Line.find("HEIGHT") != -1)
-				Sin >> LocalData.WINDOW_HEIGHT;
+				Sin >> LocalData.WINDOWSIZE.y;
 
 			else if(Line.find("TITLE") != -1)
 				Sin >> LocalData.WINDOW_TITLE;
@@ -52,63 +52,17 @@ Config GetnLoadConfigData()
 
 int main()
 {
-	const  Config Data(GetnLoadConfigData());
+	const Config Data(GetnLoadConfigData());
 
+	Game GameWindow(Data.WINDOW_TITLE,Data.WINDOWSIZE);
 
-
-	sf::RenderWindow Window(sf::VideoMode(Data.WINDOW_WIDTH, Data.WINDOW_HEIGHT), Data.WINDOW_TITLE);
-
-	Window.setFramerateLimit(15);
-
-	Player Snake(Data.WINDOW_WIDTH,Data.WINDOW_HEIGHT);
-
-	Fruit Apple;
-
-	sf::Clock clock;
-
-	while(Window.isOpen())
+	while(GameWindow.isRunning())
 	{
-		sf::Event GameEvent;
-
-		while(Window.pollEvent(GameEvent))
-		{
-			switch(GameEvent.type)
-			{
-				case sf::Event::Closed:
-				{
-					Window.close();
-				}
-				break;
-
-				case sf::Event::KeyPressed:
-				{
-					Snake.onKeyDown(GameEvent.key.code);
-				}
-				break;
-
-				case sf::Event::KeyReleased:
-				{
-					Snake.onKeyUp(GameEvent.key.code);
-				}
-				break;
-			}
-		}
-
-
-			sf::Time Dt = clock.getElapsedTime();
-			Apple.update();
-			Snake.update(Dt);
-
-			clock.restart().asMilliseconds();
-
-			Window.clear();
-
-			Snake.draw(Window);
-			Apple.draw(Window);
-
-			Window.display();
-
-
+		GameWindow.Event();
+		GameWindow.Update();
+		GameWindow.RestartClock();
+		GameWindow.Render();
 	}
+
 	return 0;
 }

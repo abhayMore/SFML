@@ -2,34 +2,75 @@
 #define PLAYER_H
 
 #include "SFML/Graphics.hpp"
-#include "Vector2f.h"
+#include "Vector2.h"
+
+struct SnakeSegment
+{
+  SnakeSegment(int x, int y): Position(x,y)
+  {
+
+  }
+  Vector2i Position;
+};
+
+enum class PlayerDirection
+{
+  None,
+  Up,
+  Down,
+  Left,
+  Right
+};
+
 
 class Player
 {
 private:
-	int WindowWidth;
-	int WindowHeight;
-	sf::RectangleShape m_Rectangle;
-	const float m_RectSizeWidth		= 20.0f;
-	const float m_RectSizeHeight	= 20.0f;
+	void CheckCollision();
 
-	float m_Speed;
-	Vector2f Position;
-	Vector2f Velocity;
+	std::vector<SnakeSegment> m_SnakeBody;
+	int m_Size;
+	PlayerDirection m_Direction;
+	int m_Speed;
+	int m_Lives;
+	int m_Score;
+	bool m_Lost;
+	sf::RectangleShape m_Rectangle;
+  Vector2f RectSize;
+
+
 
 public:
 
-  Player(int, int);
+  Player(int BlockSize);
+	~Player();
 
-  void draw(sf::RenderWindow&);
+	void SetDirection(PlayerDirection Direction);
 
-  void onKeyDown(sf::Keyboard::Key&);
+	PlayerDirection GetDirection();
+	int GetSpeed();
+	Vector2i GetPosition();
+	int GetLives();
+	int GetScore();
+	void IncreaseScore();
+	bool HasLost();
 
-  void onKeyUp(sf::Keyboard::Key&);
+	void Lose();
+	void ToggleLost();
+
+	void Extend();
+	void Reset();
 
 	void MovePlayer();
+	void Update();
 
-  void update(const sf::Time&);
+	void Cut(int Segments);
+  void Render(sf::RenderWindow& Window);
+
+
+
+  void onKeyDown(sf::Keyboard::Key&);
+  void onKeyUp(sf::Keyboard::Key&);
 
 };
 
