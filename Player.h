@@ -3,6 +3,7 @@
 
 #include "SFML/Graphics.hpp"
 #include "Vector2.h"
+#include "Textbox.h"
 
 struct SnakeSegment
 {
@@ -37,12 +38,13 @@ private:
 	bool m_Lost;
 	sf::RectangleShape m_Rectangle;
   Vector2f RectSize;
+  Textbox *m_ScoreLog, *m_LivesLog;
 
 
 
 public:
 
-  Player(int BlockSize);
+  Player(int BlockSize, Textbox* ScoreLog, Textbox* LivesLog);
 	~Player();
 
 	void SetDirection(PlayerDirection Direction);

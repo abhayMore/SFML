@@ -3,11 +3,18 @@
 #include "Constant.h"
 #include "Player.h"
 
-Game::Game(const std::string Name, const Vector2u WindowSize):m_World(WindowSize),m_Snake(m_World.GetBlockSize())
+Game::Game(const std::string Name, const Vector2u WindowSize):m_World(WindowSize),m_Snake(m_World.GetBlockSize(), &m_TextboxScore, &m_TextboxLives)
 {
   WindowScreen.create(sf::VideoMode(WindowSize.x, WindowSize.y), Name);
   clock.restart();
   Elapsed = 0.0f;
+
+  m_TextboxScore.Setup(0,14,350,Vector2f(20,0));
+  m_TextboxScore.Add("Score : "+std::to_string((long long)m_Snake.GetScore()));
+
+  m_TextboxLives.Setup(0,14,350,Vector2f(WindowSize.x - 75,0));
+  m_TextboxLives.Add("Lives : "+std::to_string((long long)m_Snake.GetLives()));
+
 
 }
 
@@ -51,7 +58,10 @@ void Game::Update()
       m_World.Update(m_Snake);
       Elapsed -= timestep;
       if(m_Snake.HasLost())
+      {
+        m_TextboxScore.Add("Game Over! Score: " + std::to_string((long long)m_Snake.GetScore()));
         m_Snake.Reset();
+      }
     }
 }
 
@@ -61,6 +71,8 @@ void Game::Render()
 
   m_World.Render(WindowScreen);
   m_Snake.Render(WindowScreen);
+  m_TextboxScore.Render(WindowScreen);
+m_TextboxLives.Render(WindowScreen);
 
   WindowScreen.display();
 }

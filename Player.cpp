@@ -4,8 +4,9 @@
 #include "Constant.h"
 #include "Vector2.h"
 
-Player::Player(int BlockSize):  m_Size(BlockSize)
+Player::Player(int BlockSize, Textbox* ScoreLog, Textbox* LivesLog):  m_Size(BlockSize), m_ScoreLog(ScoreLog), m_LivesLog(LivesLog)
 {
+  
   RectSize = Vector2f(m_Size - 1);
   m_Rectangle.setSize(Vector2f(RectSize.x,RectSize.y).ConverttoSF());
   Reset();
@@ -38,7 +39,18 @@ void Player::SetDirection(PlayerDirection Direction)
 
 PlayerDirection Player::GetDirection()
 {
-  return m_Direction;
+  if(m_SnakeBody.size() <= 1)
+    return PlayerDirection::None;
+
+  SnakeSegment& Head = m_SnakeBody[0];
+  SnakeSegment& Neck = m_SnakeBody[1];
+
+  if(Head.Position.x == Neck.Position.x)
+    return (Head.Position.y > Neck.Position.y ? PlayerDirection::Down : PlayerDirection::Up);
+  else if(Head.Position.y == Neck.Position.y)
+    return (Head.Position.x > Neck.Position.y ? PlayerDirection::Right : PlayerDirection::Left);
+
+  return PlayerDirection::None;
 }
 
 int Player::GetSpeed()
@@ -64,6 +76,7 @@ int Player::GetScore()
 void Player::IncreaseScore()
 {
   m_Score += 10;
+  m_ScoreLog->Add("Score: " + std::to_string((long long)m_Score));
 }
 
 bool Player::HasLost()
@@ -215,6 +228,7 @@ void Player::Cut(int Segments)
     m_SnakeBody.pop_back();
   }
   --m_Lives;
+  m_LivesLog->Add("Lives: " + std::to_string((long long)m_Lives));
   if(!m_Lives)
     {
       Lose();

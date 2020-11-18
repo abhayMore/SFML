@@ -15,6 +15,9 @@ private:
   sf::Clock clock;
   float Elapsed;
 
+  Textbox m_TextboxScore;
+  Textbox m_TextboxLives;
+
   sf::Event GameEvent;
 public:
   Game(const std::string Name, const Vector2u WindowSize);
