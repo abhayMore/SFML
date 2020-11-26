@@ -1,13 +1,15 @@
 #include "World.h"
 #include "Constant.h"
 #include "Fruit.h"
+#include <time.h>
 
 World::World(Vector2u WindowSize)
 {
   m_BlockSize = 20;
   m_WindowSize = WindowSize;
-
-  Apple.RespawnFruit(m_WindowSize, m_BlockSize);
+  srand(time(NULL));
+  m_Item = Vector2i(15,10);
+  Apple.SetPosition(m_Item.x*m_BlockSize,m_Item.y*m_BlockSize);
 
   for(int i = 0; i < 4; ++i)
   {
@@ -40,15 +42,31 @@ int World::GetBlockSize()
   return m_BlockSize;
 }
 
+
+void World::RespawnFruit(Player &Obj)
+{
+  int MaxX = (m_WindowSize.x/m_BlockSize - 2);
+  int MaxY = (m_WindowSize.y/m_BlockSize - 2);
+  m_Item = Vector2i(rand()% MaxX + 1, rand()% MaxY + 1);
+  for(auto i = Obj.GetSnakeBody().begin(); i!= Obj.GetSnakeBody().end(); i++)
+  {
+    if(m_Item.x == i->Position.x && m_Item.y == i->Position.y)
+    {
+      m_Item = Vector2i(rand()% MaxX + 1, rand()% MaxY + 1);
+    }
+  }
+  Apple.SetPosition(m_Item.x *m_BlockSize, m_Item.y*m_BlockSize);
+}
+
+
 void World::Update(Player& PlayerObj)
 {
   Apple.Update();
-
-  if(PlayerObj.GetPosition() == Apple.GetItem())
+  if(PlayerObj.GetPosition() == m_Item)
   {
     PlayerObj.Extend();
     PlayerObj.IncreaseScore();
-    Apple.RespawnFruit(m_WindowSize, m_BlockSize);
+    RespawnFruit(PlayerObj);
   }
   int GridSizeX = m_WindowSize.x / m_BlockSize;
   int GridSizeY = m_WindowSize.y / m_BlockSize;
@@ -59,8 +77,8 @@ void World::Update(Player& PlayerObj)
   {
     PlayerObj.Lose();
   }
-
 }
+
 
 void World::Render(sf::RenderWindow& Window)
 {

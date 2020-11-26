@@ -15,16 +15,11 @@ private:
   sf::RectangleShape m_Fruit;
 
 public:
-
   Fruit();
-
-  Vector2i GetItem();
-  void RespawnFruit(Vector2u WorldWindSize, int BoundSize);
-
+  void SetPosition(int a, int b);
+  Vector2i GetPosition();
   void Render(sf::RenderWindow&);
-
   void Update();
-
 };
 
 

@@ -31,11 +31,13 @@ private:
 
 	std::vector<SnakeSegment> m_SnakeBody;
 	int m_Size;
+
 	PlayerDirection m_Direction;
 	int m_Speed;
 	int m_Lives;
 	int m_Score;
 	bool m_Lost;
+
 	sf::RectangleShape m_Rectangle;
   Vector2f RectSize;
   Textbox *m_ScoreLog, *m_LivesLog;
@@ -49,11 +51,14 @@ public:
 
 	void SetDirection(PlayerDirection Direction);
 
+  std::vector<SnakeSegment> GetSnakeBody();
 	PlayerDirection GetDirection();
 	int GetSpeed();
 	Vector2i GetPosition();
 	int GetLives();
 	int GetScore();
+
+
 	void IncreaseScore();
 	bool HasLost();
 
@@ -64,16 +69,13 @@ public:
 	void Reset();
 
 	void MovePlayer();
-	void Update();
-
 	void Cut(int Segments);
-  void Render(sf::RenderWindow& Window);
-
-
 
   void onKeyDown(sf::Keyboard::Key&);
   void onKeyUp(sf::Keyboard::Key&);
 
+  void Update();
+  void Render(sf::RenderWindow& Window);
 };
 
 

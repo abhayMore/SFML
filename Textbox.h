@@ -6,22 +6,19 @@
 
 class Textbox
 {
-public:
-  Textbox();
-  Textbox(int Visible, int CharSize, int Width, Vector2f ScreeenPos);
-  ~Textbox();
-  void Setup(int Visible, int CharSize, int Width, Vector2f ScreeenPos);
-  void Add(std::string Message);
-  void Clear();
-
-  void Render(sf::RenderWindow& Wind);
 private:
-  std::vector<std::string> m_Messages;
-  int m_Visible;
-
-  sf::RectangleShape m_Backdrop;
   sf::Font m_Font;
   sf::Text m_Content;
+
+
+
+public:
+  Textbox();
+  Textbox(int CharSize, int Width, Vector2f ScreeenPos);
+  ~Textbox();
+  void Setup( int CharSize, int Width, Vector2f ScreeenPos);
+  void Add(const std::string& Message);
+  void Render(sf::RenderWindow& Wind);
 };
 
 
